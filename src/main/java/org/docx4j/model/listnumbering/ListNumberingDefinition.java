@@ -83,18 +83,18 @@
  */
 package org.docx4j.model.listnumbering;
 
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.docx4j.XmlUtils;
 import org.docx4j.wml.Lvl;
 import org.docx4j.wml.Numbering;
 import org.docx4j.wml.Numbering.Num.LvlOverride.StartOverride;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents:
@@ -204,10 +204,12 @@ public class ListNumberingDefinition {
 							StartOverride startOverride = overrideNode.getStartOverride();
 							if (startOverride != null
 									&& startOverride.getVal() != null) {
-								
-								this.levels.get(overrideLevelId).setStartValue(
-										startOverride.getVal().subtract(BigInteger.ONE));
-								log.debug("level " + overrideLevelId + "starts at " + startOverride.getVal());
+
+                                if(this.levels != null && this.levels.get(overrideLevelId) != null) {
+                                    this.levels.get(overrideLevelId).setStartValue(
+                                            startOverride.getVal().subtract(BigInteger.ONE));
+                                    log.debug("level " + overrideLevelId + "starts at " + startOverride.getVal());
+                                }
 							}
 						}
 
